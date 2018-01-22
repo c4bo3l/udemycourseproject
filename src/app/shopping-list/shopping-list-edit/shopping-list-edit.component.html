@@ -1,0 +1,53 @@
+<div class="container">
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>
+        <h1>{{ shoppingIndex>=0 ? 'Edit Shopping List' : 'Add New Shoping List' }}</h1>
+      </legend>
+      <div class="form-group">
+        <label for="cbIngredirent" class="col-sm-2 control-label">Ingredient</label>
+        <div class="col-sm-6">
+          <select name="cbIngredient" class="form-control" (input)="onSelectedIngredientChange($event)" 
+            [value]="model.ingredientID">
+            <option *ngFor="let ing of ingredients" [value]="ing.id">
+              {{ ing.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inpQuantity" class="col-sm-2 control-label">Quantity</label>
+        <div [ngClass]="{
+          'col-sm-2': !model.ingredient,
+          'col-sm-3': model.ingredient
+        }">
+          <div [ngClass]="{
+            'input-group': model.ingredient && model.ingredient.uom && model.ingredient.uom.length > 0
+          }">
+            <input type="number" name="inpQuantity" 
+              [(ngModel)]="model.quantity" 
+              class="form-control"/>
+            <span class="input-group-addon" *ngIf="model.ingredient && model.ingredient.uom && model.ingredient.uom.length > 0">
+              {{ model.ingredient ? model.ingredient.uom : '' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="chkImportant" class="col-sm-2 col-sm-offset-2">
+          <input type="checkbox" [checked]="model.isImportant" (click)="changeImportantLevel()"/> Important
+        </label>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6 col-sm-offset-2">
+          <button type="button" class="btn btn-primary" (click)="onSave()">
+            <i class="glyphicon glyphicon-save"></i> Save
+          </button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">
+            <i class="glyphicon glyphicon-ban-circle"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

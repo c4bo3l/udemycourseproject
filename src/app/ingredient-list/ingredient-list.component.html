@@ -1,0 +1,47 @@
+<div class="container">
+  <fieldset>
+    <legend>
+      <h1>Ingredients</h1>
+    </legend>
+    <button type="button" class="btn btn-primary" (click)="addIngredient()">
+      <i class="glyphicon glyphicon-plus"></i> Add Ingredient
+    </button>
+    <div *ngIf="ingredients.length>0 else noIngredient">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>UOM</td>
+            <td>Edit</td>
+            <td>Delete</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ing of ingredients;">
+            <td>
+              {{ ing.name }}
+            </td>
+            <td>
+              {{ ing.uom }}
+            </td>
+            <td>
+              <a href='javascript:void(0)' (click)="editIngredient(ing.id)">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </a>
+            </td>
+            <td>
+              <a href="javascript:void(0)" (click)="deleteIngredient(ing.id)">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noIngredient>
+      <div class="alert alert-warning" role="alert">
+        No ingredient found.
+      </div>
+    </ng-template>
+  </fieldset>
+</div>

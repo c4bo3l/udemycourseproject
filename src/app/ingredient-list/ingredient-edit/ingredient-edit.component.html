@@ -1,0 +1,40 @@
+<div class="container ">
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>
+        <h1 *ngIf="obj.id && obj.id>=0 else addNew">Edit Ingredient</h1>
+        <ng-template #addNew>
+          <h1>Add New Ingredient</h1>
+        </ng-template>
+      </legend>
+    </fieldset>
+    <div class="form-group">
+      <label for="txtName" class="col-sm-2 control-label">{{ nameLabel }}</label>
+      <div class="col-sm-6">
+        <input type="text" [placeholder]="namePlaceholder" 
+          [(ngModel)]="obj.name"
+          name="txtName"
+          class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtUOM" class="col-sm-2 control-label">{{ uomLabel }}</label>
+      <div class="col-sm-6">
+        <input type="text" [placeholder]="uomPlaceholder" 
+          [(ngModel)]="obj.uom"
+          name="txtUOM"
+          class="form-control"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6 col-sm-offset-2">
+        <button type="button" class="btn btn-primary" (click)="onSave()">
+          <i class="glyphicon glyphicon-save"></i> Save
+        </button>
+        <button type="button" class="btn btn-danger" (click)="onCancel()">
+          <i class="glyphicon glyphicon-ban-circle"></i> Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
