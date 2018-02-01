@@ -9,48 +9,14 @@
       </button>
     </div>
     <div *ngIf="shoppingList.length>0 else noShopping">
-      <div *ngFor="let shopping of shoppingList; let i = index;">
-        <div class="alert" 
-          role="alert"
-          [ngClass]="{
-            'alert-info': !shopping.isImportant,
-            'alert-danger': shopping.isImportant
-          }">
-          <div class="row">
-            <div class="col-xs-9">
-              <strong>{{ shopping.ingredient.name }}</strong> 
-              {{ shopping.quantity }} 
-              {{shopping.ingredient.uom }}
-            </div>
-            <div class="col-xs-1">
-              <button type="button" class="close" 
-                [title]="shopping.isImportant ? 'Important' : 'Not Important'"
-                (click)="changeShoppingImportantLevel(i)">
-                <span>
-                  <i class="glyphicon" [ngClass]="{
-                    'glyphicon-star-empty': !shopping.isImportant,
-                    'glyphicon-star': shopping.isImportant
-                  }"></i>
-                </span>
-              </button>
-            </div>
-            <div class="col-xs-1">
-              <button type="button" class="close" title="Edit" (click)="editShoppingList(i)">
-                <span aria-hidden="true">
-                  <i class="glyphicon glyphicon-pencil"></i>
-                </span>
-              </button>
-            </div>
-            <div class="col-xs-1">
-              <button type="button" class="close" title="Delete" (click)="deleteShoppingList(i)">
-                <span aria-hidden="true">
-                  <i class="glyphicon glyphicon-remove"></i>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-shopping-list-detail 
+        *ngFor="let shopping of shoppingList" 
+        [shopping]="shopping"
+        (changeImportant)="changeShoppingImportantLevel($event)"
+        (edit)="editShoppingList($event)"
+        (delete)="deleteShoppingList($event)"
+      >
+      </app-shopping-list-detail>
     </div>
     <ng-template #noShopping>
       <div class="alert alert-warning" role="alert">

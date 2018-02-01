@@ -1,0 +1,40 @@
+<div class="alert" 
+  role="alert"
+  [ngClass]="{
+    'alert-info': !shopping.isImportant,
+    'alert-danger': shopping.isImportant
+  }">
+  <div class="row">
+    <div class="col-xs-9">
+      <strong>{{ shopping.ingredient.name }}</strong> 
+      {{ shopping.quantity }} 
+      {{shopping.ingredient.uom }}
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="close" 
+        [title]="shopping.isImportant ? 'Important' : 'Not Important'"
+        (click)="changeImportantLevel(shopping.shoppingID)">
+        <span>
+          <i class="glyphicon" [ngClass]="{
+            'glyphicon-star-empty': !shopping.isImportant,
+            'glyphicon-star': shopping.isImportant
+          }"></i>
+        </span>
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="close" title="Edit" (click)="editShoppingList()">
+        <span aria-hidden="true">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </span>
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button type="button" class="close" title="Delete" (click)="deleteShoppingList()">
+        <span aria-hidden="true">
+          <i class="glyphicon glyphicon-remove"></i>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

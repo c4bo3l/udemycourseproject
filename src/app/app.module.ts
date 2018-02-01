@@ -12,7 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import { IngredientEditComponent } from './ingredient-list/ingredient-edit/ingredient-edit.component';
 import { DataService } from './services/data.service';
-import { ShoppingService } from './services/shopping/shopping.service'
+import { ShoppingService } from './services/shopping/shopping.service';
+import { ShoppingListDetailComponent } from './shopping-list/shopping-list-detail/shopping-list-detail.component'
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ShoppingService } from './services/shopping/shopping.service'
     RecipeBookComponent,
     HomeComponent,
     IngredientListComponent,
-    IngredientEditComponent
+    IngredientEditComponent,
+    ShoppingListDetailComponent
   ],
   imports: [
     BrowserModule,

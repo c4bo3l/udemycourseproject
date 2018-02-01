@@ -25,10 +25,10 @@ export class ShoppingListEditComponent implements OnInit {
     this.acRoute.params.subscribe(resp => {
       this.shoppingIndex=resp.id;
       this.model=this.service.getShoppingList(this.shoppingIndex);
-
       if((!this.shoppingIndex || this.shoppingIndex<0) && !this.model)
         this.model=new ShoppingModel(this.ingredientService);
     });
+    
     this.ingredientService.ingredients.subscribe(resp => {
       this.ingredients=[...resp];
     });

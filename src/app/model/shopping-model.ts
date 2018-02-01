@@ -2,6 +2,7 @@ import { IngredientModel } from './ingredient-model';
 import { DataService } from '../services/data.service';
 
 export class ShoppingModel{
+    shoppingID: number;
     ingredientID:number;
     quantity:number;
     isImportant:boolean;

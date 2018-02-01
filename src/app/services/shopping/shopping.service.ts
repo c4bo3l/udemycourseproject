@@ -13,12 +13,14 @@ export class ShoppingService {
     this.bhShopping=new BehaviorSubject<ShoppingModel[]>([]);
     
     let newShopping:ShoppingModel=new ShoppingModel(this.ingredientService);
+    newShopping.shoppingID=1;
     newShopping.setIngredientID(1);
     newShopping.quantity=10;
     newShopping.isImportant=true;
     this.bhShopping.next([...this.bhShopping.value,newShopping]);
 
     newShopping=new ShoppingModel(this.ingredientService);
+    newShopping.shoppingID=2;
     newShopping.setIngredientID(2);
     newShopping.quantity=100;
     newShopping.isImportant=false;
@@ -44,43 +46,50 @@ export class ShoppingService {
   }
 
   changeShoppingImportantLevel(index:number){
-    if(index<0 || !this.bhShopping.value[index])
+    if(index<0 || !this.bhShopping.value.find(b => b.shoppingID===index))
       return;
-    let arr=[...this.bhShopping.value];
-    arr[index].isImportant=!arr[index].isImportant;
-    this.bhShopping.next(this.sortList([...arr]));
+    let idx=this.bhShopping.value.findIndex(b => b.shoppingID==index);
+    this.bhShopping.value[idx].isImportant = !this.bhShopping.value[idx].isImportant;
+    this.bhShopping.next(this.sortList([...this.bhShopping.value]));
   }
 
   getShoppingList(index:number):ShoppingModel{
-    if(!this.bhShopping.value[index])
+    let idx:number=this.bhShopping.value.findIndex(b => b.shoppingID==index);
+    if(idx<0)
       return null;
-    return this.bhShopping.value[index];
+    return this.bhShopping.value[idx];
   }
 
   addShoppingList(obj:ShoppingModel){
     if(!obj)
       return;
+    obj.shoppingID=this.bhShopping.value.length+1;
     this.bhShopping.next(this.sortList([...this.bhShopping.value,obj]));
   }
 
-  editShoppingList(index:number,obj:ShoppingModel){
-    if(!index || !obj || !this.bhShopping.value[index])
+  editShoppingList(obj:ShoppingModel){
+    if(!obj || !this.bhShopping.value.find(b => b.shoppingID===obj.shoppingID))
       return;
-    let arr=[...this.bhShopping.value];
+    let shoppingIndex=this.bhShopping.value.findIndex(b => b.shoppingID===obj.shoppingID);
     
-    if(arr[index].ingredientID!==obj.ingredientID)
-      arr[index].setIngredientID(obj.ingredientID);
+    if(this.bhShopping.value[shoppingIndex].ingredientID!==obj.ingredientID)
+    this.bhShopping.value[shoppingIndex].setIngredientID(obj.ingredientID);
     
-    arr[index].quantity=obj.quantity;
-    arr[index].isImportant=obj.isImportant;
-    this.bhShopping.next(this.sortList([...arr]));
+    this.bhShopping.value[shoppingIndex].quantity=obj.quantity;
+    this.bhShopping.value[shoppingIndex].isImportant=obj.isImportant;
+    this.bhShopping.next(this.sortList([...this.bhShopping.value]));
   }
 
   deleteShoppingList(index:number){
-    if(!this.bhShopping.value[index])
+    let idx:number=this.bhShopping.value.findIndex(b => b.shoppingID==index);
+    if(idx<0)
       return;
     let arr=[...this.bhShopping.value];
-    arr.splice(index,1);
-    this.bhShopping.next(this.sortList([...arr]));
+    if(arr.length<=1)
+      this.bhShopping.next([]);
+    else{
+      arr.splice(idx,1);
+      this.bhShopping.next(this.sortList([...arr]));
+    }
   }
 }

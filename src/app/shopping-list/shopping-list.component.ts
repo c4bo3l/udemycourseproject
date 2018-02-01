@@ -4,6 +4,8 @@ import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { ShoppingModel } from '../model/shopping-model';
 import { IngredientModel } from '../model/ingredient-model';
+import { ShoppingListDetailComponent } from './shopping-list-detail/shopping-list-detail.component';
+import { Event } from '_debugger';
 
 @Component({
   selector: 'app-shopping-list',
@@ -39,8 +41,8 @@ export class ShoppingListComponent implements OnInit {
     this.router.navigate(['shoppinglist/add']);
   }
 
-  editShoppingList(index:number){
-    this.router.navigate(['shoppinglist/edit/' + index]);
+  editShoppingList(evt:number){
+    this.router.navigate(['shoppinglist/edit/' + evt]); 
   }
 
   deleteShoppingList(index:number){
